@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->integer('id_tables');
-            $table->dateTime('timeBooking');
             $table->integer('id_food');
             $table->integer('quantity')->default(1);
             $table->timestamps();
