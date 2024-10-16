@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->string('nameSale');
-            $table->string('status')->default(SaleStatus::AVAILABLE);
+            $table->string('status')->default(SaleStatus::UNAVAILABLE);
             $table->dateTime('startTime');
             $table->dateTime('endTime');
             $table->double('percent');

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('sdt');
+            $table->string('phoneNumber');
             $table->string('fullName');
-            $table->string('otp')->nullable();
+            $table->string('OTP')->nullable();
             $table->string('point')->default(0);
             $table->string('pointRank')->default(0);
             $table->timestamps();
