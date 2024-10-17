@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_tables');
             $table->dateTime('timeBooking');
             $table->integer('id_food');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(1);
             $table->timestamps();
         });
     }
