@@ -20,6 +20,14 @@ class TableController extends Controller
 
     public function create(Request $request)
     {
+        $check = Table::where('number', $request->number)->first();
+
+        if (!$check) {
+            return response()->json([
+                'message' => 'Số bàn này đã tồn tại',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         $table = Table::create([
             'number'   => $request->number,
             'status'   => $request->status,
@@ -34,9 +42,15 @@ class TableController extends Controller
     public function update(Request $request)
     {
         $table = Table::find($request->id);
-        $table->update([
-            'status' => $request->status
-        ]);
+
+        if (!$table) {
+            return response()->json([
+                'message' => 'Không tìm thấy bàn',
+                'data' => $table,
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $table->update($request->all());
 
         return response()->json([
             'message' => 'Cập nhật thành công',
