@@ -13,4 +13,9 @@ class History_point extends Model
         'point',
         'date',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'id_customer', 'id');
+    }
 }

@@ -17,4 +17,9 @@ class Customer extends Model
         'point',
         'pointRank',
     ];
+
+    public function historyPoints()
+    {
+        return $this->hasMany(History_point::class, 'id_customer', 'id');
+    }
 }

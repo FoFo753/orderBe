@@ -17,4 +17,9 @@ class Food extends Model
         "detail",
         "status",
     ];
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'id_food');
+    }
 }
