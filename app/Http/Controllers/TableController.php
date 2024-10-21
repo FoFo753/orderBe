@@ -22,7 +22,7 @@ class TableController extends Controller
     {
         $check = Table::where('number', $request->number)->first();
 
-        if (!$check) {
+        if ($check) {
             return response()->json([
                 'message' => 'Số bàn này đã tồn tại',
             ], Response::HTTP_BAD_REQUEST);
