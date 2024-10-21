@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EvaluateController;
 use App\Http\Controllers\History_pointControler;
 use App\Http\Controllers\bookingController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\foodsController;
 use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\SaleController;
@@ -67,4 +68,11 @@ Route::group(['prefix' => 'foods'], function () {
     Route::post('/', [foodsController::class, 'create']);
     Route::put('/', [foodsController::class, 'update']);
     Route::delete('/{id}', [foodsController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'category'], function () {
+    Route::get('/', [CategoryController::class, 'getData']);
+    Route::post('/', [CategoryController::class, 'create']);
+    Route::put('/', [CategoryController::class, 'update']);
+    Route::delete('/{id}', [CategoryController::class, 'delete']);
 });
