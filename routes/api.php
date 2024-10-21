@@ -16,6 +16,7 @@ Route::group(['prefix' => 'table'], function () {
     Route::put('/', [TableController::class, 'update']);
     Route::delete('/{id}', [TableController::class, 'delete']);
 });
+
 Route::group(['prefix' => 'sale'], function () {
     Route::get('/', [SaleController::class, 'getData']); 
     Route::post('/', [SaleController::class, 'create']); 

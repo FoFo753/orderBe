@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Enums\Sale\SaleStatus;
 class SaleController extends Controller
 {
     public  function getData()
@@ -14,15 +14,15 @@ class SaleController extends Controller
 
         return response()->json([
             'data' => $data,
-            'message' => 'Lấp dữ liệu thành công'
+            'message' => 'Lấy dữ liệu thành công'
         ], Response::HTTP_OK);
     }
+
     public function create(Request $request)
     {
         $check = Sale::where('nameSale', $request->nameSale)->first();
 
         if ($check) {
-
             return response()->json([
                 'message' => 'Tên mã giảm giá này đã tồn tại',
             ], response::HTTP_BAD_REQUEST);
@@ -30,7 +30,7 @@ class SaleController extends Controller
 
         $sale = Sale::create([
             'nameSale' => $request->nameSale,
-            'status' => $request->status,
+            'status' => SaleStatus::AVAILABLE,
             'startTime' => $request->startTime,
             'endTime' => $request->endTime,
             'percent' => $request->percent,
@@ -41,6 +41,7 @@ class SaleController extends Controller
             'data' => $sale,
         ], Response::HTTP_CREATED);
     }
+
     public function update(Request $request)
     {
         $sale = Sale::find($request->id);
@@ -61,9 +62,9 @@ class SaleController extends Controller
     }
 
     public function delete($id)
-
     {
         $check = Sale::find($id);
+
         if ($check) {
             $check->delete();
 
