@@ -23,6 +23,7 @@ class RankController extends Controller
         $check = Rank::where('nameRank', $request->nameRank)->first();
 
         if ($check) {
+
             return response()->json([
                 'message' => 'Rank đã tồn tại',
             ], Response::HTTP_BAD_REQUEST);
@@ -45,6 +46,7 @@ class RankController extends Controller
         $rank = Rank::find($request->id);
 
         if (!$rank) {
+
             return response()->json([
                 'message' => 'Không có Rank này',
                 'data' => $rank,
