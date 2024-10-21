@@ -4,6 +4,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EvaluateController;
 use App\Http\Controllers\History_pointControler;
+use App\Http\Controllers\bookingController;
+use App\Http\Controllers\foodsController;
+use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\TableController;
@@ -41,6 +44,27 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('/{id_table}', [CartController::class, 'getData']);
     Route::post('/', [CartController::class, 'create']);
     Route::put('/', [CartController::class, 'update']);
-    Route::delete( '/{id}', [CartController::class, 'delete']);
+    Route::delete('/{id}', [CartController::class, 'delete']);
     Route::delete('/table/{id_table}', [CartController::class, 'deleteAllFoodFromTable']);
+});
+
+Route::group(['prefix' => 'invoice'], function () {
+    Route::get('/', [invoiceController::class, 'getData']);
+    Route::post('/', [invoiceController::class, 'create']);
+    Route::put('/', [invoiceController::class, 'update']);
+    Route::delete('/{id}', [invoiceController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'booking'], function () {
+    Route::get('/', [bookingController::class, 'getData']);
+    Route::post('/', [bookingController::class, 'create']);
+    Route::put('/', [bookingController::class, 'update']);
+    Route::delete('/{id}/{id2}', [bookingController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'foods'], function () {
+    Route::get('/', [foodsController::class, 'getData']);
+    Route::post('/', [foodsController::class, 'create']);
+    Route::put('/', [foodsController::class, 'update']);
+    Route::delete('/{id}', [foodsController::class, 'delete']);
 });
