@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->integer("status")->default(StatusCategory::OPEN);
-            $table->string("name");
+            $table->integer('status')->default(StatusCategory::OPEN);
+            $table->string('name');
             $table->timestamps();
         });
     }
