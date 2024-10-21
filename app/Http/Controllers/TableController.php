@@ -23,7 +23,6 @@ class TableController extends Controller
         $check = Table::where('number', $request->number)->first();
 
         if ($check) {
-
             return response()->json([
                 'message' => 'Số bàn này đã tồn tại',
             ], Response::HTTP_BAD_REQUEST);
@@ -45,7 +44,6 @@ class TableController extends Controller
         $table = Table::find($request->id);
 
         if (!$table) {
-
             return response()->json([
                 'message' => 'Không tìm thấy bàn',
                 'data' => $table,
