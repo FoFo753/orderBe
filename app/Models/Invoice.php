@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'id_booking',
+        'timeEnd',
+        'total',
+        'id_user',
+    ];
 }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class History_point extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id_customer',
+        'point',
+        'date',
+    ];
 }
