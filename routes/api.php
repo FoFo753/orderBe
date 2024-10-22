@@ -37,6 +37,13 @@ Route::group(['prefix' => 'rank'], function () {
     Route::delete('/{id}', [RankController::class, 'delete']);
 });
 
+Route::group(['prefix' => 'customer'], function () {
+    Route::get('/', [CustomerController::class, 'getData']);
+    Route::post('/', [CustomerController::class, 'create']);
+    Route::put('/', [CustomerController::class, 'update']);
+    Route::delete('/{id}', [CustomerController::class, 'delete']);
+});
+
 Route::group(['prefix' => 'cart'], function () {
     Route::get('/{id_table}', [CartController::class, 'getData']);
     Route::post('/', [CartController::class, 'create']);
