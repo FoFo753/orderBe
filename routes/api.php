@@ -55,24 +55,3 @@ Route::group(['prefix' => 'invoice'], function () {
     Route::put('/', [invoiceController::class, 'update']);
     Route::delete('/{id}', [invoiceController::class, 'delete']);
 });
-
-Route::group(['prefix' => 'booking'], function () {
-    Route::get('/', [bookingController::class, 'getData']);
-    Route::post('/', [bookingController::class, 'create']);
-    Route::put('/', [bookingController::class, 'update']);
-    Route::delete('/{id}/{id2}', [bookingController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'foods'], function () {
-    Route::get('/', [foodsController::class, 'getData']);
-    Route::post('/', [foodsController::class, 'create']);
-    Route::put('/', [foodsController::class, 'update']);
-    Route::delete('/{id}', [foodsController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'category'], function () {
-    Route::get('/', [CategoryController::class, 'getData']);
-    Route::post('/', [CategoryController::class, 'create']);
-    Route::put('/', [CategoryController::class, 'update']);
-    Route::delete('/{id}', [CategoryController::class, 'delete']);
-});
