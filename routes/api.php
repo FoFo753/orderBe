@@ -37,38 +37,9 @@ Route::group(['prefix' => 'rank'], function () {
     Route::delete('/{id}', [RankController::class, 'delete']);
 });
 
-Route::group(['prefix' => 'cart'], function () {
-    Route::get('/', [CartController::class, 'getData']);
-    Route::post('/', [CartController::class, 'create']);
-    Route::put('/', [CartController::class, 'update']);
-    Route::delete('/{id}', [CartController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'customer'], function () {
-    Route::get('/', [CustomerController::class, 'getData']);
-    Route::post('/', [CustomerController::class, 'create']);
-    Route::put('/', [CustomerController::class, 'update']);
-    Route::delete('/{id}', [CustomerController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'evaluate'], function () {
-    Route::get('/', [EvaluateController::class, 'getData']);
-    Route::post('/', [EvaluateController::class, 'create']);
-    Route::put('/', [EvaluateController::class, 'update']);
-    Route::delete('/{id}', [EvaluateController::class, 'delete']);
-});
-
 Route::group(['prefix' => 'history_point'], function () {
     Route::get('/', [History_pointControler::class, 'getData']);
     Route::post('/', [History_pointControler::class, 'create']);
     Route::put('/', [History_pointControler::class, 'update']);
     Route::delete('/{id}', [History_pointControler::class, 'delete']);
 });
-
-Route::group(['prefix' => 'user'], function () {
-    Route::get('/', [UserController::class, 'getData']);
-    Route::post('/', [UserController::class, 'create']);
-    Route::put('/', [UserController::class, 'update']);
-    Route::delete('/{id}', [UserController::class, 'delete']);
-});
-
