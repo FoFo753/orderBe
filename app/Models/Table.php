@@ -12,6 +12,7 @@ class Table extends Model
         'number',
         'status',
     ];
+
     public function carts()
     {
         return $this->hasMany(Cart::class, 'id_table');
