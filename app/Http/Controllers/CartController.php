@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Table;
 use App\Models\Food;
+use App\Services\Cart\CreateCartService;
+use App\Services\Cart\DeleteCartService;
+use App\Services\Cart\DeleteCartTableService;
+use App\Services\Cart\GetCartService;
+use App\Services\Cart\UpdateCartService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Test\Constraint\ResponseStatusCodeSame;
 
 class CartController extends Controller
 {
-    public function getData()
+    public function getData($id_table)
     {
-        $data = Cart::with(['table', 'food'])->get(); 
+        $data = resolve(GetCartService::class)->setParams($id_table)->handle();
+
+        if(count($data) == 0) return response()->json([
+            'message'   =>  'giỏ hàng rỗng'
+        ]);
 
         return response()->json([
             'data' => $data,
@@ -22,63 +32,62 @@ class CartController extends Controller
 
     public function create(Request $request)
     {
-        $check = Cart::where('id_table', $request->id_table)->first();
-        if ($check) {
-            return response()->json([
-                'message' => 'Giỏ hàng đã tồn tại cho bàn này'
-            ], Response::HTTP_BAD_REQUEST);
+        $cart = resolve(CreateCartService::class)->setParams($request->all())->handle();
+
+        if ($cart->getStatusCode() === Response::HTTP_BAD_REQUEST) {
+            return response()->json(
+                ['message'  => $cart->getData()->message],
+                Response::HTTP_BAD_REQUEST
+            );
         }
-
-        $table = Table::find($request->id_table);
-        $food = Food::find($request->id_food);
-
-        if (!$table || !$food) {
-            return response()->json([
-                'message' => 'Bàn hoặc món ăn không tồn tại'
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $cart = Cart::create([
-            'id_table'  => $request->id_table,
-            'id_food'   => $request->id_food,
-            'quantity'  => 1,
-        ]);
 
         return response()->json([
-            'data' => $cart,
-            'message' => 'Thêm vào giỏ hàng thành công'
+            $cart->getData()
         ], Response::HTTP_CREATED);
     }
 
     public function update(Request $request)
     {
-        $cart = Cart::find($request->id);
-        if (!$cart) {
-            return response()->json([
-                'message' => 'Giỏ hàng không tồn tại'
-            ], Response::HTTP_NOT_FOUND);
-        }
+        $cart = resolve(UpdateCartService::class)->setParams($request->all())->handle();
 
-        $cart->update($request->all());
+        if (!$cart) return response()->json([
+            'message' => 'Lỗi cập nhật'
+        ], Response::HTTP_BAD_REQUEST);
 
         return response()->json([
-            'data' => $cart,
-            'message' => 'Cập nhật thành công'
+            'message'    =>  'Cập nhật thành công',
         ], Response::HTTP_OK);
     }
 
     public function delete($id)
     {
-        $cart = Cart::find($id);
-        if ($cart) {
-            $cart->delete();
+        $cart = resolve(DeleteCartService::class)
+            ->setParams($id)
+            ->handle();
+
+        if (!$cart) return response()->json([
+            'message' => 'Lỗi xóa',
+        ], Response::HTTP_BAD_REQUEST);
+
+        return response()->json([
+            'message'   =>  'Xoa ok',
+        ], Response::HTTP_OK);
+    }
+
+    public function deleteAllFoodFromTable($id_table)
+    {
+        $cartService = resolve(DeleteCartTableService::class)
+            ->setParams($id_table)
+            ->handle();
+
+        if (!$cartService) {
             return response()->json([
-                'message' => 'Xóa giỏ hàng thành công'
-            ], Response::HTTP_OK);
+                'message' => 'Lỗi xóa',
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         return response()->json([
-            'message' => 'Giỏ hàng không tồn tại'
-        ], Response::HTTP_NOT_FOUND);
+            'message' => 'Xóa tất cả thành công',
+        ], Response::HTTP_OK);
     }
 }

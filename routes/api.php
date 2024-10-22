@@ -38,8 +38,9 @@ Route::group(['prefix' => 'rank'], function () {
 });
 
 Route::group(['prefix' => 'cart'], function () {
-    Route::get('/', [CartController::class, 'getData']);
+    Route::get('/{id_table}', [CartController::class, 'getData']);
     Route::post('/', [CartController::class, 'create']);
     Route::put('/', [CartController::class, 'update']);
-    Route::delete('/{id}', [CartController::class, 'delete']);
+    Route::delete( '/{id}', [CartController::class, 'delete']);
+    Route::delete('/table/{id_table}', [CartController::class, 'deleteAllFoodFromTable']);
 });
