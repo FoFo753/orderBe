@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\bookingController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\foodsController;
+use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\TableController;
@@ -30,4 +34,11 @@ Route::group(['prefix' => 'rank'], function () {
     Route::post('/', [RankController::class, 'create']);
     Route::put('/', [RankController::class, 'update']);
     Route::delete('/{id}', [RankController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'booking'], function () {
+    Route::get('/', [bookingController::class, 'getData']);
+    Route::post('/', [bookingController::class, 'create']);
+    Route::put('/', [bookingController::class, 'update']);
+    Route::delete('/{id}/{id2}', [bookingController::class, 'delete']);
 });
