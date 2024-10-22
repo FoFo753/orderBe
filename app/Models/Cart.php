@@ -15,9 +15,4 @@ class Cart extends Model
         'id_food',
         'quantity',
     ];
-
-    public function table(): BelongsTo
-    {
-        return $this->belongsTo(Table::class);
-    }
 }

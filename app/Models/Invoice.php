@@ -15,9 +15,4 @@ class Invoice extends Model
         'total',
         'id_user',
     ];
-
-    public function booking(): BelongsTo
-    {
-        return $this->belongsTo(Booking::class);
-    }
 }

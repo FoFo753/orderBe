@@ -17,14 +17,4 @@ class Booking extends Model
         'id_food',
         'quantity',
     ];
-
-    public function food(): HasMany
-    {
-        return $this->hasMany(Food::class);
-    }
-
-    public function table(): BelongsTo
-    {
-        return $this->belongsTo(Table::class);
-    }
 }

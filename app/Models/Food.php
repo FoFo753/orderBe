@@ -18,9 +18,4 @@ class Food extends Model
         "detail",
         "status",
     ];
-
-    public function booking(): BelongsTo
-    {
-        return $this->belongsTo(Booking::class);
-    }
 }

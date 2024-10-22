@@ -26,9 +26,4 @@ class User extends Authenticatable
         'role',
         'status',
     ];
-
-    public function invoice(): BelongsTo
-    {
-        return $this->belongsTo(Invoice::class);
-    }
 }
