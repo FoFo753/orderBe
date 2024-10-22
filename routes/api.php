@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EvaluateController;
+use App\Http\Controllers\History_pointControler;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +35,12 @@ Route::group(['prefix' => 'rank'], function () {
     Route::post('/', [RankController::class, 'create']);
     Route::put('/', [RankController::class, 'update']);
     Route::delete('/{id}', [RankController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/{id_table}', [CartController::class, 'getData']);
+    Route::post('/', [CartController::class, 'create']);
+    Route::put('/', [CartController::class, 'update']);
+    Route::delete( '/{id}', [CartController::class, 'delete']);
+    Route::delete('/table/{id_table}', [CartController::class, 'deleteAllFoodFromTable']);
 });
