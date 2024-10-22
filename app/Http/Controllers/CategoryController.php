@@ -4,62 +4,78 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function getData()
     {
-        //
+        $category = Category::get();
+
+        return response()->json([
+            'message' => 'Lấy dữ liệu category thành công',
+            'data' => $category
+        ], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $category = Category::where('name', $request->name)->first();
+
+        if ($category) {
+            return response()->json([
+                'message' => 'Category đã tồn tại',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $category = Category::create([
+            'status'   => $request->status,
+            'name'   => $request->name,
+        ]);
+
+        return response()->json([
+            'message' => 'Tạo category thành công',
+            'data' => $category,
+        ], Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $category = Category::where('name', $request->name)->first();
+
+
+        if (!$category) {
+            return response()->json([
+                'message' => 'Không có category này',
+                'data' => $category,
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $category->update($request->all());
+
+        return response()->json([
+            'message' => 'Cập nhật category thành công',
+            'data' => $category,
+        ], Response::HTTP_OK);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
+    public function delete($id)
     {
-        //
-    }
+        $category = Category::where('name', $id)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
+        if ($category) {
+            $category->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
+            return response()->json([
+                'message' => 'Xoá category thành công',
+                'data' => $id,
+            ], Response::HTTP_OK);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
-    {
-        //
+        return response()->json([
+            'message' => 'Không có category này',
+            'data' => $category,
+        ], Response::HTTP_BAD_REQUEST);
     }
 }
