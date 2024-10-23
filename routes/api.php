@@ -50,7 +50,7 @@ Route::group(['prefix' => 'cart'], function () {
 });
 
 Route::group(['prefix' => 'invoice'], function () {
-    Route::get('/', [invoiceController::class, 'getData']);
+    Route::get('/{id}', [invoiceController::class, 'getData']);
     Route::post('/', [invoiceController::class, 'create']);
     Route::put('/', [invoiceController::class, 'update']);
     Route::delete('/{id}', [invoiceController::class, 'delete']);

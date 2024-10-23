@@ -12,7 +12,7 @@ class Booking extends Model
     use HasFactory;
     protected $table = "bookings";
     protected $fillable = [
-        'id_tables',
+        'id_table',
         'timeBooking',
         'id_food',
         'quantity',
@@ -20,11 +20,11 @@ class Booking extends Model
 
     public function food(): HasMany
     {
-        return $this->hasMany(Food::class);
+        return $this->hasMany(Food::class, 'id', 'id_food');
     }
 
     public function table(): BelongsTo
     {
-        return $this->belongsTo(Table::class);
+        return $this->belongsTo(Table::class, 'id_table');
     }
 }

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Services\Invoice\FetchInvoiceService;
+use App\Services\Invoice\InvoiceService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class invoiceController extends Controller
 {
-    public function getData()
+    public function getData($id)
     {
-        $invoice = Invoice::get();
+        $invoice = resolve(FetchInvoiceService::class)->setParams($id)->handle();
 
         return response()->json([
             'message' => 'Lấy Data Invoice thành công',
