@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Table;
+use App\Services\Table\CreateTableService;
+use App\Services\Table\DeleteTableService;
+use App\Services\Table\GetTableService;
+use App\Services\Table\UpdateTableService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -10,69 +14,55 @@ class TableController extends Controller
 {
     public function getData()
     {
-        $dataTable = Table::get();
+        $dataTable = resolve(GetTableService::class)->handle();
 
         return response()->json([
             'message' => 'Lấy dữ liệu thành công',
-            'data' => $dataTable
+            'data' => $dataTable,
         ], Response::HTTP_OK);
     }
 
     public function create(Request $request)
     {
-        $check = Table::where('number', $request->number)->first();
+        $table = resolve(CreateTableService::class)->setParams($request->all())->handle();
 
-        if ($check) {
-            return response()->json([
-                'message' => 'Số bàn này đã tồn tại',
-            ], Response::HTTP_BAD_REQUEST);
+        if ($table->getStatusCode() === Response::HTTP_BAD_REQUEST) {
+            return response()->json(
+                ['message' => $table->getData()->message],
+                Response::HTTP_BAD_REQUEST
+            );
         }
 
-        $table = Table::create([
-            'number'   => $request->number,
-            'status'   => $request->status,
-        ]);
-
-        return response()->json([
-            'message' => 'tạo bàn thành công',
-            'data' => $table,
-        ], Response::HTTP_CREATED);
+        return response()->json(
+            $table->getData(),
+            Response::HTTP_CREATED
+        );
     }
 
     public function update(Request $request)
     {
-        $table = Table::find($request->id);
+        $table = resolve(UpdateTableService::class)->setParams($request->all())->handle();
 
-        if (!$table) {
-            return response()->json([
-                'message' => 'Không tìm thấy bàn',
-                'data' => $table,
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $table->update($request->all());
+        if (!$table) return response()->json([
+            'message' => 'Lỗi cập nhật'
+        ], Response::HTTP_BAD_REQUEST);
 
         return response()->json([
-            'message' => 'Cập nhật thành công',
-            'data' => $table,
+            'message'    =>  'Cập nhật thành công',
         ], Response::HTTP_OK);
     }
-
     public function delete($id)
     {
-        $check = Table::find($id);
+        $table = resolve(DeleteTableService::class)
+            ->setParams($id)
+            ->handle();
 
-        if ($check) {
-            $check->delete();
-
-            return response()->json([
-                'message' => 'Xoá thành công',
-                'id' => $id,
-            ], Response::HTTP_OK);
-        }
+        if (!$table) return response()->json([
+            'message' => 'Lỗi',
+        ], Response::HTTP_BAD_REQUEST);
 
         return response()->json([
-            'message' => 'id bàn không tồn tại',
-        ], Response::HTTP_BAD_REQUEST);
+            'message'   =>  'Xoá Table thành công',
+        ], Response::HTTP_OK);
     }
 }
