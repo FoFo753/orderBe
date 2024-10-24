@@ -45,9 +45,9 @@ Route::group(['prefix' => 'cart'], function () {
     Route::delete('/table/{id_table}', [CartController::class, 'deleteAllFoodFromTable']);
 });
 
-// Route::group(['prefix' => 'user'], function () {
-//     Route::get('/', [UserController::class, 'getData']);
-//     Route::post('/', [UserController::class, 'create']);
-//     Route::put('/', [UserController::class, 'update']);
-//     Route::delete('/{id}', [UserController::class, 'delete']);
-// });
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'getData']);
+    Route::post('/', [UserController::class, 'create']);
+    Route::put('/', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'delete']);
+});
