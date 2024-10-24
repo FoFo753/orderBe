@@ -20,7 +20,7 @@ class CartController extends Controller
     {
         $data = resolve(GetCartService::class)->setParams($id_table)->handle();
 
-        if(count($data) == 0) return response()->json([
+        if (count($data) == 0) return response()->json([
             'message'   =>  'giỏ hàng rỗng'
         ]);
 

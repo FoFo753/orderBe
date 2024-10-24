@@ -17,7 +17,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //get, post, put, delete
 Route::group(['prefix' => 'table'], function () {
-    Route::get('/', [TableController::class, 'getData']); //=> domain/api/table/
+    Route::get('/', [TableController::class, 'getData']);
     Route::post('/', [TableController::class, 'create']);
     Route::put('/', [TableController::class, 'update']);
     Route::delete('/{id}', [TableController::class, 'delete']);
@@ -41,6 +41,6 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('/{id_table}', [CartController::class, 'getData']);
     Route::post('/', [CartController::class, 'create']);
     Route::put('/', [CartController::class, 'update']);
-    Route::delete( '/{id}', [CartController::class, 'delete']);
+    Route::delete('/{id}', [CartController::class, 'delete']);
     Route::delete('/table/{id_table}', [CartController::class, 'deleteAllFoodFromTable']);
 });
