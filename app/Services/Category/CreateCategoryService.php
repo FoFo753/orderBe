@@ -12,7 +12,7 @@ class CreateCategoryService extends BaseService
     public function handle()
     {
 
-        $category = Category::find($this->data['id']);
+        $category = Category::where('name', $this->data['name'])->first();
 
         if ($category) {
             return response()->json([

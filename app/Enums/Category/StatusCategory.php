@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Enums\Category;
 
@@ -11,6 +13,6 @@ use BenSampo\Enum\Enum;
  */
 final class StatusCategory extends Enum
 {
-    const OPEN = 0;
-    const CLOSE = 1;
+    const OPEN = 1;
+    const CLOSE = 0;
 }

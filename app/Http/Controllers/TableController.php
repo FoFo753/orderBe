@@ -43,7 +43,8 @@ class TableController extends Controller
         $table = resolve(UpdateTableService::class)->setParams($request->all())->handle();
 
         if (!$table) return response()->json([
-            'message' => 'Lỗi cập nhật'
+            'message' => 'Lỗi cập nhật',
+            'data' =>  $table,
         ], Response::HTTP_BAD_REQUEST);
 
         return response()->json([

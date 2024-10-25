@@ -10,8 +10,6 @@ class UpdateCategoryService extends BaseService
 {
     public function handle()
     {
-
-
         $category = Category::find($this->data['id']);
 
         if (!$category) return false;

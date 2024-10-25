@@ -24,6 +24,7 @@ Route::group(['prefix' => 'table'], function () {
     Route::put('/', [TableController::class, 'update']);
     Route::delete('/{id}', [TableController::class, 'delete']);
 });
+
 Route::group(['prefix' => 'category'], function () {
     Route::get('/', [CategoryController::class, 'getData']);
     Route::post('/', [CategoryController::class, 'create']);

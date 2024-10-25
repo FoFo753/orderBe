@@ -10,8 +10,6 @@ class UpdateTableService extends BaseService
 {
     public function handle()
     {
-
-
         $table = Table::find($this->data['id']);
 
         if (!$table) return false;

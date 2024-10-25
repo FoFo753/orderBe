@@ -22,8 +22,6 @@ class CategoryController extends Controller
         ], Response::HTTP_OK);
     }
 
-
-
     public function create(Request $request)
     {
         $table = resolve(CreateCategoryService::class)->setParams($request->all())->handle();
@@ -53,6 +51,7 @@ class CategoryController extends Controller
             'message'    =>  'Cập nhật thành công',
         ], Response::HTTP_OK);
     }
+
     public function delete($id)
     {
         $table = resolve(DeleteCategoryService::class)
