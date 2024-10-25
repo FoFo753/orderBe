@@ -22,8 +22,6 @@ class CreateCustomerService extends BaseService
             'phoneNumber' => $this->data['phoneNumber'],
             'fullName'    => $this->data['fullName'],
             'OTP'         => $this->data['OTP'],
-            'point'       => $this->data['point'],
-            'pointRank'   => $this->data['pointRank'],
         ]);
 
         return response()->json([
