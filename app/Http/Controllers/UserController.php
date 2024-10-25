@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
 use App\Services\User\CreateUserServices;
 use App\Services\User\DeleteUserServices;
@@ -31,17 +30,14 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $userService = resolve(CreateUserServices::class)->setParams($request->all());
-        $response = $userService->handle();
+        $response = resolve(CreateUserServices::class)->setParams($request->all())->handle();
 
         return response()->json($response->getData(), $response->getStatusCode());
     }
 
     public function update(Request $request)
     {
-        $updateUserService = resolve(UpdateUserServices::class)
-            ->setParams($request->all());
-        $response = $updateUserService->handle();
+        $response = resolve(UpdateUserServices::class)->setParams($request->all())->handle();
 
         return response()->json($response->getData(), $response->getStatusCode());
     }
