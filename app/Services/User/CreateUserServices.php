@@ -13,8 +13,9 @@ class CreateUserServices extends BaseService
     public function handle()
     {
         $check = User::where('email', $this->data['email'])
-            ->orWhere('phoneNumber', $this->data['phoneNumber'])
-            ->first();
+        ->orWhere('phoneNumber', $this->data['phoneNumber'])
+        ->exists();
+    
 
         if ($check) {
             return response()->json([
@@ -27,8 +28,6 @@ class CreateUserServices extends BaseService
             'email'       => $this->data['email'],
             'phoneNumber' => $this->data['phoneNumber'],
             'birth'       => $this->data['birth'],
-            'role'        => UserRole::STAFF,
-            'status'      => UserStatus::ACTIVE,
         ]);
 
         return response()->json([
