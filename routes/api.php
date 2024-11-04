@@ -44,12 +44,12 @@ Route::group(['prefix' => 'customer'], function () {
     Route::delete('/{id}', [CustomerController::class, 'delete']);
 });
 
-// Route::group(['prefix' => 'evaluate'], function () {
-//     Route::get('/', [EvaluateController::class, 'getData']);
-//     Route::post('/', [EvaluateController::class, 'create']);
-//     Route::put('/', [EvaluateController::class, 'update']);
-//     Route::delete('/{id}', [EvaluateController::class, 'delete']);
-// });
+Route::group(['prefix' => 'evaluate'], function () {
+    Route::get('/', [EvaluateController::class, 'getData']);
+    Route::post('/', [EvaluateController::class, 'create']);
+    Route::put('/', [EvaluateController::class, 'update']);
+    Route::delete('/{id}', [EvaluateController::class, 'delete']);
+});
 
 Route::group(['prefix' => 'cart'], function () {
     Route::get('/{id_table}', [CartController::class, 'getData']);
