@@ -9,12 +9,13 @@ use App\Services\BaseService;
 class GetUserServices extends BaseService
 {
     public function handle()
-{
-    $data = User::where('status', UserStatus::ACTIVE)->get();
+    {
+        $data = User::where('status', UserStatus::ACTIVE)
+            ->get();
 
-    if ($data->isEmpty()) return false;
+        if ($data->isEmpty()) return false;
 
-    return $data;
-}
+        return $data;
+    }
 
 }

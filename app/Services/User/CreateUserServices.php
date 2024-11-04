@@ -13,10 +13,9 @@ class CreateUserServices extends BaseService
     public function handle()
     {
         $check = User::where('email', $this->data['email'])
-        ->orWhere('phoneNumber', $this->data['phoneNumber'])
-        ->exists();
+            ->orWhere('phoneNumber', $this->data['phoneNumber'])
+            ->exists();
     
-
         if ($check) {
             return response()->json([
                 'message' => 'Email hoặc số điện thoại đã tồn tại',

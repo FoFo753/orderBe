@@ -44,12 +44,11 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        $deleteUserService = resolve(DeleteUserServices::class)->setParams(['id' => $id]);
-        $response = $deleteUserService->handle();
+        $deleteUserService = resolve(DeleteUserServices::class)->setParams(['id' => $id])->handle();;
 
         return response()->json(
-            $response->getData(),
-            $response->getStatusCode()
+            $deleteUserService->getData(),
+            $deleteUserService->getStatusCode()
         );
     }
 }
