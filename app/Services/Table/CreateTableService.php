@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateTableService extends BaseService
 {
-
     public function handle()
     {
         $table = Table::where('number', $this->data['number'])->exists();

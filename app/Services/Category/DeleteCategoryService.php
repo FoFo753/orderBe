@@ -7,7 +7,6 @@ use App\Services\BaseService;
 
 class DeleteCategoryService extends BaseService
 {
-
     public function handle()
     {
         $category = Category::find($this->data);

@@ -8,10 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateCategoryService extends BaseService
 {
-
     public function handle()
     {
-
         $category = Category::where('name', $this->data['name'])->first();
 
         if ($category) {

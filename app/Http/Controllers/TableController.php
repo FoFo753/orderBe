@@ -42,15 +42,18 @@ class TableController extends Controller
     {
         $table = resolve(UpdateTableService::class)->setParams($request->all())->handle();
 
-        if (!$table) return response()->json([
-            'message' => 'Lỗi cập nhật',
-            'data' =>  $table,
-        ], Response::HTTP_BAD_REQUEST);
+        if (!$table) {
+            return response()->json([
+                'message' => 'Lỗi cập nhật',
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         return response()->json([
-            'message'    =>  'Cập nhật thành công',
+            'message' => 'Cập nhật thành công',
+            'data'    => $table, // Trả về dữ liệu mới sau khi cập nhật
         ], Response::HTTP_OK);
     }
+
     public function delete($id)
     {
         $table = resolve(DeleteTableService::class)

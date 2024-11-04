@@ -2,14 +2,10 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\EvaluateController;
-use App\Http\Controllers\History_pointControler;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\TableController;
-use App\Http\Controllers\UserController;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +19,13 @@ Route::group(['prefix' => 'table'], function () {
     Route::post('/', [TableController::class, 'create']);
     Route::put('/', [TableController::class, 'update']);
     Route::delete('/{id}', [TableController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'food'], function () {
+    Route::get('/', [FoodController::class, 'getData']);
+    Route::post('/', [FoodController::class, 'create']);
+    Route::put('/', [FoodController::class, 'update']);
+    Route::delete('/{id}', [FoodController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'category'], function () {

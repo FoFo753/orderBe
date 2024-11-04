@@ -7,7 +7,6 @@ use App\Services\BaseService;
 
 class DeleteTableService extends BaseService
 {
-
     public function handle()
     {
         $table = Table::find($this->data);

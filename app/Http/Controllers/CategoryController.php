@@ -11,16 +11,23 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-
     public function getData()
     {
-        $data = resolve(GetCategoryService::class)->handle();
+        try {
+            $data = resolve(GetCategoryService::class)->handle();
 
-        return response()->json([
-            'message' => 'Lấy dữ liệu thành công',
-            'data' => $data,
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => 'Lấy dữ liệu thành công',
+                'data' => $data,
+            ], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Lỗi khi lấy dữ liệu',
+                'error' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     public function create(Request $request)
     {
