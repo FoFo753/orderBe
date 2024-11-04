@@ -20,10 +20,10 @@ class CustomerController extends Controller
     public function create(Request $request)
     {
         $customer = resolve(CreateCustomerService::class)->setParams($request->all())->handle();
+
         return response()->json($customer->getData(), $customer->getStatusCode());
     }
     
-
     public function update(Request $request)
     {
         $customer = resolve(UpdateCustomerService::class)->setParams($request->all())->handle();
