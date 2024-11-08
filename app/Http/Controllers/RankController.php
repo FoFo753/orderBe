@@ -2,78 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rank;
+use App\Models\Food;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RankController extends Controller
+class FoodController extends Controller
 {
     public function getData()
     {
-        $dataRank = Rank::get();
+        $dataFood = Food::get();
 
         return response()->json([
-            'message' => 'Lấy dữ liệu Rank thành công',
-            'data' => $dataRank
+            'message' => 'Lấy dữ liệu thành công',
+            'data' => $dataFood,
         ], Response::HTTP_OK);
     }
 
     public function create(Request $request)
     {
-        $check = Rank::where('nameRank', $request->nameRank)->first();
+        $check = Food::where('name', $request->name)->first();
 
         if ($check) {
             return response()->json([
-                'message' => 'Rank đã tồn tại',
+                'message' => 'Món ăn đã tồn tại',
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $rank = Rank::create([
-            'nameRank'   => $request->nameRank,
-            'necessaryPoints'   => $request->necessaryPoints,
-            'saleRank'   => $request->saleRank,
+        $food = Food::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            // Add other fields as necessary
         ]);
 
         return response()->json([
-            'message' => 'Tạo Rank thành công',
-            'data' => $rank,
+            'message' => 'Tạo món ăn thành công',
+            'data' => $food,
         ], Response::HTTP_CREATED);
     }
 
     public function update(Request $request)
     {
-        $rank = Rank::find($request->id);
+        $food = Food::find($request->id);
 
-        if (!$rank) {
+        if (!$food) {
             return response()->json([
-                'message' => 'Không có Rank này',
-                'data' => $rank,
+                'message' => 'Không có món ăn này',
+                'data' => null,
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $rank->update($request->all());
+        $food->update($request->all());
 
         return response()->json([
-            'message' => 'Cập nhật Rank thành công',
-            'data' => $rank,
+            'message' => 'Cập nhật món ăn thành công',
+            'data' => $food,
         ], Response::HTTP_OK);
     }
 
     public function delete($id)
     {
-        $check = Rank::find($id);
+        $food = Food::find($id);
 
-        if ($check) {
-            $check->delete();
+        if ($food) {
+            $food->delete();
 
             return response()->json([
-                'message' => 'Xoá Rank thành công',
+                'message' => 'Xoá món ăn thành công',
                 'id' => $id,
             ], Response::HTTP_OK);
         }
 
         return response()->json([
-            'message' => 'Rank không tồn tại',
+            'message' => 'Món ăn không tồn tại',
         ], Response::HTTP_BAD_REQUEST);
     }
 }

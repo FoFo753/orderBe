@@ -50,7 +50,7 @@ class TableController extends Controller
 
         return response()->json([
             'message' => 'Cập nhật thành công',
-            'data'    => $table, // Trả về dữ liệu mới sau khi cập nhật
+            'data'    => $table,
         ], Response::HTTP_OK);
     }
 
