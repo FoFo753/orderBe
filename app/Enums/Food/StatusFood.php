@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Enums\Food;
 
@@ -11,6 +11,6 @@ use BenSampo\Enum\Enum;
  */
 final class StatusFood extends Enum
 {
-    const AVAILABLE = 0;
-    const UNAVAILABLE = 1;
+    const AVAILABLE = 1;
+    const UNAVAILABLE = 0;
 }

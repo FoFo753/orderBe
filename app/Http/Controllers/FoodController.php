@@ -32,7 +32,6 @@ class FoodController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            // Add other fields as necessary
         ]);
 
         return response()->json([

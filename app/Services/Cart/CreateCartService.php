@@ -28,7 +28,7 @@ class CreateCartService extends BaseService
 
             return response()->json([
                 'message'    =>  'lỗi cập nhật',
-            ]); 
+            ]);
         };
 
         $table = Table::find($this->data['id_table']);

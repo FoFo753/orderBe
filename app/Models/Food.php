@@ -17,4 +17,9 @@ class Food extends Model
         "detail",
         "status",
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
 }
